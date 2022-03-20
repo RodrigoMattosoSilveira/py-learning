@@ -2,34 +2,34 @@
 Attempt to mix SimPy python-statemachine
 """
 from statemachine import StateMachine, State
-from random import seed, randint
+from random import randint
 import simpy
 
 
 class EV:
-    def __init__(self, env):
-        self.env = env
-        self.drive_proc = env.process(self.drive(env))
-        self.bat_ctrl_proc = env.process(self.bat_ctrl(env))
+    def __init__(self, _env):
+        self.env = _env
+        self.drive_proc = env.process(self.drive())
+        self.bat_ctrl_proc = env.process(self.bat_ctrl())
         self.bat_ctrl_reactivate = env.event()
 
-    def drive(self, env):
+    def drive(self):
         while True:
             # Drive for 20-40 min
-            yield env.timeout(randint(20, 40))
+            yield self.env.timeout(randint(20, 40))
 
             # Park for 1–6 hours
-            print('Start parking at', env.now)
+            print('Start parking at', self.env.now)
             self.bat_ctrl_reactivate.succeed()  # "reactivate"
             self.bat_ctrl_reactivate = env.event()
             yield env.timeout(randint(60, 360))
-            print('Stop parking at', env.now)
+            print('Stop parking at', self.env.now)
 
-    def bat_ctrl(self, env):
+    def bat_ctrl(self):
         while True:
-            print('Bat. ctrl. passivating at', env.now)
+            print('Bat. ctrl. passivating at', self.env.now)
             yield self.bat_ctrl_reactivate  # "passivate"
-            print('Bat. ctrl. reactivated at', env.now)
+            print('Bat. ctrl. reactivated at', self.env.now)
 
             # Intelligent charging behavior here …
             yield env.timeout(randint(30, 90))
