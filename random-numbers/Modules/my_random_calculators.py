@@ -53,7 +53,7 @@ def rng_apd(arr, freq, n):
     prefix[0] = freq[0]
     for i in range(n):
         prefix[i] = prefix[i - 1] + freq[i]
-    print(prefix)
+    # print(prefix)
     # prefix[n-1] is sum of all frequencies.
     # Generate a random number with
     # value from 1 to this sum
@@ -61,5 +61,5 @@ def rng_apd(arr, freq, n):
 
     # Find index of ceiling of r in prefix array
     index_c = find_ceil(prefix, r, 0, n - 1)
-    print(index_c)
+    # print(index_c)
     return arr[index_c]
