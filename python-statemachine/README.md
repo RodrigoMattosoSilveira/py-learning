@@ -70,3 +70,6 @@ on enter yellow.
 
 ## Static methods do not work for TrafficLightMachine
 If we declare the callback methods as static and attempt to use them, we get the `AttributeError: 'NoneType' object has no attribute 'current_state'`;
+
+# Experimenting with integrating it with SimPy
+Unable to integrate SimPy and python-statemachine easily. I'll come back to it later.
